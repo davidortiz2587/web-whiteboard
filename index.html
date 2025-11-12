@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Free Web Whiteboard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  
+  <div class="toolbar" role="toolbar" aria-label="Drawing controls">
+    <div class="group">
+      <label for="color">Color</label>
+      <input id="color" type="color" value="#000000" />
+    </div>
+
+    <div class="group">
+        <label for="background-color">Background<br>Color</label>
+        <input id="background-color" type="color" value="#ffffff" />
+    </div>
+
+    <div class="group">
+      <label for="size">Size</label>
+      <input id="size" type="range" min="1" max="60" value="6" />
+      <span id="sizeVal" class="chip">6 px</span>
+    </div>
+
+    <div class="group">
+      <button id="pen" class="btn" aria-pressed="true" title="Pen (P)"><img class="icon" src="icons/pencil.png" alt=""> Pen</button>
+      <button id="eraser" class="btn" title="Eraser (E)"><img class="icon" src="icons/eraser.png" alt=""> Eraser</button>
+      <div class="dropdown">
+        <button id="grid" class="btn" title="Toggle Grid (G)"><img class="icon" src="icons/grid-alt.png" alt=""> Grid</button>
+        <div class="dropdown-content">
+          <label for="gridSize">Grid Size:</label>
+          <input type="range" id="gridSize" min="10" max="200" value="80" />
+          <span id="gridSizeValue" class="chip">80 px</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="group">
+      <button id="undo" class="btn" disabled title="Undo (Ctrl/Cmd+Z)"><img class="icon" src="icons/undo-alt.png" alt=""> Undo</button>
+      <button id="redo" class="btn" disabled title="Redo (Ctrl/Cmd+Shift+Z)"><img class="icon" src="icons/redo-alt.png" alt=""> Redo</button>
+      <button id="clear" class="btn" title="Clear (C)"><img class="icon" src="icons/trash.png" alt=""> Clear</button>
+      <button id="removeBackground" class="btn" title="Remove Background (R)" style="display: none;">Remove BG</button>
+    </div>
+
+    <div class="group">
+      <button id="upload" class="btn" title="Upload Background (U)"><img class="icon" src="icons/folder-open.png" alt=""> Upload</button>
+      <button id="save" class="btn" title="Save PNG (S)"><img class="icon" src="icons/disk.png" alt=""> Save</button>
+    </div>
+  </div>
+  <canvas id="board" aria-label="Drawing board"></canvas>
+  
+  <!-- Hidden file input for background uploads -->
+  <input type="file" id="fileInput" accept=".png,.jpg,.jpeg,.pdf" style="display: none;">
+  
+  <!-- Preview area for uploaded files -->
+  <div id="preview" style="display: none;"></div>
+  
+  <!-- <div class="hint">Tip: Click and drag to draw. Supports touch, pen pressure, and erasing. Resize-safe & Hi‑DPI crisp.</div> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>  
+  <script src="script.js"></script>
+</body>
+</html>

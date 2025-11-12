@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>File Viewer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    #preview {
+      margin-top: 20px;
+      max-width: 100%;
+      max-height: 600px;
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <h2>Upload and Preview a File</h2>
+  
+  <input type="file" id="fileInput" accept=".png,.jpg,.jpeg,.pdf">
+  
+  <div id="preview">No file selected</div>
+  
+  <script>
+    const fileInput = document.getElementById("fileInput");
+    const preview = document.getElementById("preview");
+
+    fileInput.addEventListener("change", () => {
+      preview.innerHTML = ""; // clear previous content
+      const file = fileInput.files[0];
+      if (!file) {
+        preview.textContent = "No file selected";
+        return;
+      }
+
+      const fileType = file.type;
+
+      if (fileType.startsWith("image/")) {
+        // Handle image files
+        const img = document.createElement("img");
+        img.src = URL.createObjectURL(file);
+        preview.appendChild(img);
+      } else if (fileType === "application/pdf") {
+        // Handle PDF files
+        const iframe = document.createElement("iframe");
+        iframe.src = URL.createObjectURL(file);
+        preview.appendChild(iframe);
+      } else {
+        // Handle other file types (just show name)
+        preview.textContent = "Selected file: " + file.name + " (Preview not available)";
+      }
+    });
+  </script>
+</body>
+</html>
