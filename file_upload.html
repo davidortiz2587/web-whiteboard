@@ -27,9 +27,9 @@
   </style>
 </head>
 <body>
-  <h2>Upload and Preview a File</h2>
+  <h2>Upload and Preview an Image</h2>
   
-  <input type="file" id="fileInput" accept=".png,.jpg,.jpeg,.pdf">
+  <input type="file" id="fileInput" accept=".png,.jpg,.jpeg">
   
   <div id="preview">No file selected</div>
   
@@ -52,14 +52,9 @@
         const img = document.createElement("img");
         img.src = URL.createObjectURL(file);
         preview.appendChild(img);
-      } else if (fileType === "application/pdf") {
-        // Handle PDF files
-        const iframe = document.createElement("iframe");
-        iframe.src = URL.createObjectURL(file);
-        preview.appendChild(iframe);
       } else {
         // Handle other file types (just show name)
-        preview.textContent = "Selected file: " + file.name + " (Preview not available)";
+        preview.textContent = "Selected file: " + file.name + " (Only images can be previewed)";
       }
     });
   </script>

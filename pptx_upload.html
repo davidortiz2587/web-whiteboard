@@ -2,105 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>PDF Slide Viewer</title>
+  <title>Uploads Unavailable</title>
   <style>
     body {
       display: flex;
-      flex-direction: column;
       align-items: center;
+      justify-content: center;
+      min-height: 100vh;
       font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      color: #333;
     }
-    #pdf-container {
-      width: 80%;
-      height: 600px;
-      border: 1px solid #ccc;
-      margin: 20px 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-    }
-    #pdf-container canvas {
-      max-width: 100%;
-      max-height: 100%;
-    }
-    #controls {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
+    .message {
+      background: #fff;
+      padding: 24px 32px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      max-width: 480px;
+      text-align: center;
     }
   </style>
 </head>
 <body>
-  <h1>PDF Slide Viewer</h1>
-  <input type="file" id="upload" accept=".pdf" />
-  <div id="pdf-container">
-    <p>Upload a PDF file to view slides.</p>
+  <div class="message">
+    <h1>PDF uploading has been removed</h1>
+    <p>This page no longer supports PDF uploads or viewing.</p>
   </div>
-  <div id="controls">
-    <button id="prev">⬅ Prev</button>
-    <button id="next">Next ➡</button>
-  </div>
-
-  <!-- PDF.js library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-
-  <script>
-    let pdfDoc = null;
-    let currentPage = 1;
-    let totalPages = 0;
-
-    const container = document.getElementById("pdf-container");
-
-    document.getElementById("upload").addEventListener("change", function(e) {
-      const file = e.target.files[0];
-      if (!file) return;
-
-      const reader = new FileReader();
-      reader.onload = function(ev) {
-        const typedArray = new Uint8Array(ev.target.result);
-
-        pdfjsLib.getDocument(typedArray).promise.then(function(pdf) {
-          pdfDoc = pdf;
-          totalPages = pdf.numPages;
-          currentPage = 1;
-          renderPage(currentPage);
-        });
-      };
-      reader.readAsArrayBuffer(file);
-    });
-
-    function renderPage(pageNum) {
-      pdfDoc.getPage(pageNum).then(function(page) {
-        const viewport = page.getViewport({ scale: 1.5 });
-        const canvas = document.createElement("canvas");
-        const context = canvas.getContext("2d");
-        canvas.height = viewport.height;
-        canvas.width = viewport.width;
-
-        const renderContext = { canvasContext: context, viewport: viewport };
-        page.render(renderContext).promise.then(() => {
-          container.innerHTML = ""; // clear previous
-          container.appendChild(canvas);
-        });
-      });
-    }
-
-    document.getElementById("prev").addEventListener("click", () => {
-      if (!pdfDoc || currentPage <= 1) return;
-      currentPage--;
-      renderPage(currentPage);
-    });
-
-    document.getElementById("next").addEventListener("click", () => {
-      if (!pdfDoc || currentPage >= totalPages) return;
-      currentPage++;
-      renderPage(currentPage);
-    });
-  </script>
 </body>
 </html>

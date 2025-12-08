@@ -284,27 +284,18 @@ function handleFileUpload() {
       showPreview(img, file.name);
     };
     img.src = URL.createObjectURL(file);
-  } else if (fileType === "application/pdf") {
-    // Handle PDF files - show preview but note that PDF background isn't supported yet
-    showPreview(null, file.name, 'pdf');
   } else {
-    alert('Unsupported file type. Please upload an image (PNG, JPG, JPEG) or PDF.');
+    alert('Unsupported file type. Please upload an image (PNG, JPG, JPEG).');
   }
   
   // Reset file input
   fileInput.value = '';
 }
 
-function showPreview(img, fileName, fileType = 'image') {
+function showPreview(img, fileName) {
   preview.innerHTML = '';
   
-  if (fileType === 'pdf') {
-    preview.innerHTML = `
-      <button class="preview-close" onclick="closePreview()">×</button>
-      <h3>PDF Uploaded: ${fileName}</h3>
-      <p>PDF backgrounds are not yet supported for drawing. Please upload an image file instead.</p>
-    `;
-  } else if (img) {
+  if (img) {
     preview.innerHTML = `
       <button class="preview-close" onclick="closePreview()">×</button>
       <h3>Background Image: ${fileName}</h3>
